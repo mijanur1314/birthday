@@ -247,7 +247,6 @@ body {
   animation: pull-and-open 1.8s ease-in-out forwards;
   animation-delay: 0.6s;
 }
-
 @keyframes pull-and-open {
   0% { transform: translateY(0) scale(1); z-index: 1; opacity: 1; }
   35% { transform: translateY(-120%) scale(1); z-index: 1; opacity: 1; }
@@ -260,6 +259,12 @@ body {
   font-size: 0.95rem;
   color: var(--deep-plum);
   line-height: 1.35;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.envelope.open .letter-paper p {
+  opacity: 1;
+  transition: opacity 0.4s ease 0.6s;
 }
 .tap-hint {
   font-size: 0.85rem;
@@ -339,7 +344,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
   transform-origin: left center;
   overflow-y: auto;
@@ -612,7 +617,7 @@ svg.candle-flame { cursor: pointer; }
 .easter-egg-modal {
   position: fixed;
   inset: 0;
-  background: rgba(61, 11, 36, 0.4);
+  background: rgba(61, 11, 36, 0.95);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 10000;
