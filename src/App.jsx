@@ -24,6 +24,7 @@ const pageOrder = [
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
+  const [cakeBlown, setCakeBlown] = useState(false);
   
   const [currentStep, setCurrentStep] = useState('envelope');
   const [hasStartedMusic, setHasStartedMusic] = useState(false);
@@ -69,6 +70,7 @@ export default function App() {
   const restartApp = () => {
     setCurrentStep('envelope');
     setHasStartedMusic(false);
+    setCakeBlown(false);
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -126,7 +128,7 @@ export default function App() {
             {currentStep === 'letter' && <TiltWrapper maxTilt={10}><Letter onNext={goToNextStep} /></TiltWrapper>}
             {currentStep === 'story' && <TiltWrapper maxTilt={8}><StoryBook onNext={goToNextStep} onPrev={goToPrevStep} /></TiltWrapper>}
             {currentStep === 'reasons' && <TiltWrapper maxTilt={6}><Reasons onNext={goToNextStep} onPrev={goToPrevStep} /></TiltWrapper>}
-            {currentStep === 'cake' && <Cake onNext={goToNextStep} onPrev={goToPrevStep} cakeAudioRef={cakeAudioRef} />}
+            {currentStep === 'cake' && <Cake onNext={goToNextStep} onPrev={goToPrevStep} cakeAudioRef={cakeAudioRef} cakeBlown={cakeBlown} onCakeBlown={() => setCakeBlown(true)} />}
             {currentStep === 'closing' && <Closing onPrev={goToPrevStep} onRestart={restartApp} />}
           </motion.div>
         </AnimatePresence>

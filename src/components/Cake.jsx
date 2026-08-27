@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 
-export default function Cake({ onNext, onPrev, cakeAudioRef }) {
-  const [litCandles, setLitCandles] = useState([true, true, true]);
-  const [allOut, setAllOut] = useState(false);
-  const [showNext, setShowNext] = useState(false);
+export default function Cake({ onNext, onPrev, cakeAudioRef, cakeBlown, onCakeBlown }) {
+  const [litCandles, setLitCandles] = useState(cakeBlown ? [false, false, false] : [true, true, true]);
+  const [allOut, setAllOut] = useState(cakeBlown);
+  const [showNext, setShowNext] = useState(cakeBlown);
   const litCandlesRef = useRef(litCandles);
   const blowOutRef = useRef(null);
 
@@ -90,6 +90,7 @@ export default function Cake({ onNext, onPrev, cakeAudioRef }) {
   useEffect(() => {
     if (litCandles.every(c => !c) && !allOut) {
       setAllOut(true);
+      if (onCakeBlown) onCakeBlown();
 
       // Fire confetti
       const duration = 3000;
