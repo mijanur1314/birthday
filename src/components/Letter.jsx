@@ -62,8 +62,8 @@ export default function Letter({ onNext }) {
           ))}
         </div>
         <div 
-          className="signoff" 
-          style={{ opacity: currentPara >= paragraphs.length ? 1 : 0, transition: 'opacity 1s ease' }}
+          className="signoff handwritten" 
+          style={{ opacity: currentPara >= paragraphs.length ? 1 : 0, transition: 'opacity 1s ease', fontSize: '2rem' }}
         >
           — always yours
         </div>

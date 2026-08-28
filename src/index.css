@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Playfair+Display:ital,wght@0,600;1,600&family=Quicksand:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Playfair+Display:ital,wght@0,600;1,600&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Great+Vibes&display=swap');
 
 :root {
   --deep-plum: #3D0B24;
@@ -21,7 +21,9 @@ html {
 }
 
 body {
-  background: linear-gradient(180deg, var(--cream-pink) 0%, var(--blush) 100%);
+  background: linear-gradient(-45deg, var(--cream-pink), var(--blush), #ffdce7, #ffc5d9);
+  background-size: 400% 400%;
+  animation: gradientBg 15s ease infinite;
   color: var(--deep-plum);
   font-family: 'Quicksand', sans-serif;
   overflow-x: hidden;
@@ -40,6 +42,87 @@ body {
 
 .serif-normal {
   font-family: 'Cormorant Garamond', serif;
+}
+
+.handwritten {
+  font-family: 'Great Vibes', cursive;
+}
+
+@keyframes gradientBg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Paper Texture overlay */
+.paper-texture {
+  position: relative;
+}
+.paper-texture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  border-radius: inherit;
+  z-index: 2;
+}
+
+/* Polaroid Styles */
+.polaroid-frame {
+  background: #fff;
+  padding: 10px 10px 30px 10px;
+  box-shadow: 0 10px 25px -5px rgba(194, 24, 91, 0.25), 0 8px 10px -6px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  transform: rotate(-2deg);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+  margin-bottom: 1.5rem;
+  width: 90%;
+  max-width: 320px;
+}
+.polaroid-frame:hover {
+  transform: rotate(1deg) scale(1.02);
+  box-shadow: 0 15px 35px -5px rgba(194, 24, 91, 0.35), 0 10px 15px -6px rgba(0,0,0,0.15);
+}
+.polaroid-img {
+  width: 100%;
+  height: 240px;
+  object-fit: contain;
+  background-color: #fff;
+  border: 1px solid #efefef;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+
+
+/* Glare for Flip Cards */
+.glare-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.glare {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg) translate(-100%, -100%);
+  transition: transform 0.6s ease;
+}
+.flip-card:hover .glare {
+  transform: rotate(30deg) translate(100%, 100%);
 }
 
 /* Base custom styles to add that premium feel */
@@ -571,13 +654,14 @@ svg.candle-flame { cursor: pointer; }
   position: absolute;
   background: var(--hot-pink);
   border-radius: 50%;
-  box-shadow: 0 0 10px 2px var(--magenta);
+  box-shadow: 0 0 12px 3px var(--magenta);
   opacity: 0.8;
-  animation: stardustFall 1.2s ease-out forwards;
+  animation: stardustFall 2s ease-in-out forwards;
 }
 @keyframes stardustFall {
-  0% { transform: translateY(0) scale(1); opacity: 0.8; }
-  100% { transform: translateY(30px) scale(0); opacity: 0; }
+  0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  50% { opacity: 1; transform: translate(15px, -20px) scale(1.5); }
+  100% { transform: translate(30px, -40px) scale(0); opacity: 0; }
 }
 
 /* Typewriter Blinking Cursor */
@@ -632,4 +716,37 @@ svg.candle-flame { cursor: pointer; }
   padding: 2.5rem 2rem;
   border-radius: 16px;
   position: relative;
+}
+
+/* Custom Cursor */
+body {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23E9518F' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>") 12 12, auto;
+}
+a, button, .secret-star, .envelope-wrap, .flip-card, .music-toggle {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23C2185B' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>") 12 12, pointer;
+}
+
+/* Starry Night Sky */
+.night-sky {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at bottom, #1B0F2E, #090510);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.night-sky .star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 4s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.closing-sub.white-text {
+  color: rgba(255, 255, 255, 0.9);
 }

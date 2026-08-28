@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Closing({ onPrev, onRestart }) {
   const [showButton, setShowButton] = useState(false);
@@ -37,6 +38,31 @@ export default function Closing({ onPrev, onRestart }) {
   return (
     <div className="flex-col flex-center" style={{ gap: '1.2rem', minHeight: '60vh', position: 'relative' }}>
       
+      <AnimatePresence>
+        {interactionStep === 'yes' && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            className="night-sky"
+            transition={{ duration: 1 }}
+          >
+            {[...Array(50)].map((_, i) => (
+              <div 
+                key={i} 
+                className="star" 
+                style={{ 
+                  left: `${Math.random() * 100}%`, 
+                  top: `${Math.random() * 100}%`,
+                  width: `${Math.random() * 3 + 1}px`,
+                  height: `${Math.random() * 3 + 1}px`,
+                  animationDelay: `${Math.random() * 4}s`
+                }}
+              />
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {interactionStep === 'initial' && (
         <>
           <div className="closing-title">Happy Birthday, Nur</div>
@@ -102,13 +128,14 @@ export default function Closing({ onPrev, onRestart }) {
 
       {interactionStep === 'yes' && (
         <>
-          <div className="closing-title" style={{ fontSize: '3.2rem', marginBottom: '0.5rem' }}>I knew it! ❤️</div>
-          <p className="closing-sub serif-italic" style={{ marginBottom: '2.5rem', fontSize: '1.5rem' }}>
+          <div className="closing-title" style={{ fontSize: '3.2rem', marginBottom: '0.5rem', color: '#fff', WebkitTextFillColor: '#fff', textShadow: '0 0 20px rgba(255,255,255,0.5)' }}>I knew it! ❤️</div>
+          <p className="closing-sub serif-italic white-text" style={{ marginBottom: '2.5rem', fontSize: '1.5rem' }}>
             I love you too. Forever.
           </p>
           <button 
             className="next-btn" 
             onClick={onRestart} 
+            style={{ boxShadow: '0 0 20px rgba(194, 24, 91, 0.8)' }}
           >
             Done
           </button>

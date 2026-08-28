@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Image as ImageIcon, ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { playPaperRustle } from '../utils/sound';
 
 const storyPages = [
   { icon: "☕", title: "The day we first talked", text: "তোমাদের স্কুলে কম্পিটিশন গিয়ে তোমার সাথে কথা বলেছিলাম লজ্জা পেতে পেতে", image: "/DSC05007.jpg" },
@@ -14,6 +15,7 @@ export default function StoryBook({ onNext, onPrev }) {
   const [index, setIndex] = useState(0);
 
   const next = () => {
+    playPaperRustle();
     if (index < storyPages.length - 1) {
       setIndex(index + 1);
     } else {
@@ -22,6 +24,7 @@ export default function StoryBook({ onNext, onPrev }) {
   };
 
   const prev = () => {
+    playPaperRustle();
     if (index > 0) {
       setIndex(index - 1);
     } else if (onPrev) {
@@ -47,18 +50,13 @@ export default function StoryBook({ onNext, onPrev }) {
           >
             <div className="page-no">page {index + 1} of {storyPages.length}</div>
             
-            <img 
-              src={storyPages[index].image} 
-              alt="Our story" 
-              style={{
-                width: '100%',
-                height: '160px',
-                objectFit: 'contain',
-                backgroundColor: 'var(--cream-pink)',
-                borderRadius: '8px',
-                marginBottom: '1rem'
-              }} 
-            />
+            <div className="polaroid-frame">
+              <img 
+                src={storyPages[index].image} 
+                alt="Our story" 
+                className="polaroid-img"
+              />
+            </div>
 
             <div className="page-icon">{storyPages[index].icon}</div>
             <div className="page-title">{storyPages[index].title}</div>

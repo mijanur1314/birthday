@@ -33,7 +33,7 @@ export default function Stardust() {
 
       setTimeout(() => {
         setParticles(prev => prev.filter(p => p.id !== newParticle.id));
-      }, 1200); // Match CSS animation duration
+      }, 2000); // Match CSS animation duration
     };
 
     window.addEventListener('mousemove', handlePointerMove);

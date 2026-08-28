@@ -11,6 +11,7 @@ import Closing from './components/Closing';
 import TiltWrapper from './components/TiltWrapper';
 import Splash from './components/Splash';
 import Stardust from './components/Stardust';
+import { playChime } from './utils/sound';
 
 const pageOrder = [
   'envelope',
@@ -27,7 +28,6 @@ export default function App() {
   const [cakeBlown, setCakeBlown] = useState(false);
   
   const [currentStep, setCurrentStep] = useState('envelope');
-  const [hasStartedMusic, setHasStartedMusic] = useState(false);
   const audioRef = useRef(null);
   const cakeAudioRef = useRef(null);
 
@@ -36,16 +36,21 @@ export default function App() {
     cakeAudioRef.current.volume = 0.8;
   }, []);
 
-  const stepIndex = pageOrder.indexOf(currentStep);
-
   useEffect(() => {
-    // Attempt to start music when envelope opens
-    if (!showSplash && currentStep !== 'envelope' && !hasStartedMusic && audioRef.current) {
-      audioRef.current.volume = 0.4;
-      audioRef.current.play().catch(e => console.log('Audio autoplay prevented:', e));
-      setHasStartedMusic(true);
-    }
-  }, [currentStep, hasStartedMusic, showSplash]);
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        document.title = "Come back 🥺";
+      } else {
+        document.title = "Happy Birthday, Nur 💖";
+      }
+    };
+    
+    document.title = "Happy Birthday, Nur 💖";
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
+
+  const stepIndex = pageOrder.indexOf(currentStep);
 
   const goToNextStep = () => {
     if (stepIndex < pageOrder.length - 1) {
@@ -69,12 +74,7 @@ export default function App() {
 
   const restartApp = () => {
     setCurrentStep('envelope');
-    setHasStartedMusic(false);
     setCakeBlown(false);
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
     if (cakeAudioRef.current) {
       cakeAudioRef.current.pause();
       cakeAudioRef.current.currentTime = 0;
@@ -90,16 +90,19 @@ export default function App() {
     <>
       <FloatingHearts />
       <Stardust />
-      <audio ref={audioRef} src="/music.mp3" loop />
       
       {/* Secret Easter Egg Trigger */}
       <div 
         className="secret-star" 
         onContextMenu={(e) => {
           e.preventDefault();
+          playChime();
           setShowEasterEgg(true);
         }}
-        onClick={() => setShowEasterEgg(true)}
+        onClick={() => {
+          playChime();
+          setShowEasterEgg(true);
+        }}
       >
         ✨
       </div>
@@ -118,11 +121,12 @@ export default function App() {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, rotateY: 90, scale: 0.95 }}
+            animate={{ opacity: 1, rotateY: 0, scale: 1 }}
+            exit={{ opacity: 0, rotateY: -90, scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 120, damping: 20 }}
             className="view-container"
+            style={{ transformOrigin: "left center", perspective: "1500px" }}
           >
             {currentStep === 'envelope' && <TiltWrapper><Envelope onOpen={handleEnvelopeOpen} /></TiltWrapper>}
             {currentStep === 'letter' && <TiltWrapper maxTilt={10}><Letter onNext={goToNextStep} /></TiltWrapper>}

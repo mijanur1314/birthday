@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Image as ImageIcon } from 'lucide-react';
+import { playPaperRustle } from '../utils/sound';
 
 const reasons = [
   { text: "যেইভাবে তুমি আমার যত্ন নাও, রেগে থাকলেও তুমি যতই দেখাও তুমি আমার জন্য care করোনা কিন্তু আমি বুঝতে পারি সব", image: "/IMG20260121162040.jpg" },
@@ -14,6 +15,7 @@ export default function Reasons({ onNext, onPrev }) {
   const [flipped, setFlipped] = useState(Array(6).fill(false));
 
   const toggleFlip = (index) => {
+    playPaperRustle();
     const newFlipped = [...flipped];
     newFlipped[index] = !newFlipped[index];
     setFlipped(newFlipped);
@@ -38,11 +40,12 @@ export default function Reasons({ onNext, onPrev }) {
                   alt="Reason" 
                   style={{ 
                     width: '100%', 
-                    height: '100px', 
+                    height: '110px', 
                     objectFit: 'contain', 
-                    backgroundColor: 'var(--cream-pink)',
+                    backgroundColor: '#fff',
                     borderRadius: '6px', 
-                    marginBottom: '0.5rem' 
+                    marginBottom: '0.5rem',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }} 
                 />
                 <div className="num">{String(i + 1).padStart(2, '0')}</div>
@@ -50,6 +53,9 @@ export default function Reasons({ onNext, onPrev }) {
               </div>
               <div className="flip-back flex-center">
                 <p>{reason.text}</p>
+              </div>
+              <div className="glare-container">
+                <div className="glare"></div>
               </div>
             </div>
           </div>

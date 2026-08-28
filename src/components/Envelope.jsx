@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { playPaperRustle } from '../utils/sound';
 
 export default function Envelope({ onOpen }) {
   const [opened, setOpened] = useState(false);
 
   const handleClick = () => {
     if (opened) return;
+    playPaperRustle();
     setOpened(true);
     onOpen();
   };
@@ -17,16 +19,16 @@ export default function Envelope({ onOpen }) {
       </div>
       
       <div className={`envelope ${opened ? 'open' : ''}`}>
-        <div className="env-body">
+        <div className="env-body paper-texture">
           <div className="env-shade-left"></div>
           <div className="env-shade-right"></div>
           <div className="env-label">Nourin Islam ♡</div>
         </div>
-        <div className="letter-paper">
+        <div className="letter-paper paper-texture">
           <p>Happy Birthday, My Kuchu Puchu 😗</p>
         </div>
         <div className="env-pocket"></div>
-        <div className="env-flap"></div>
+        <div className="env-flap paper-texture"></div>
         <div className="seal">N</div>
       </div>
       
