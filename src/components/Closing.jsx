@@ -46,6 +46,19 @@ export default function Closing({ onPrev, onRestart }) {
             className="night-sky"
             transition={{ duration: 1 }}
           >
+            {/* Faded Background Image */}
+            <div 
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: 'url(/IMG20251102170822.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                opacity: 0.45,
+                zIndex: 0
+              }}
+            />
+            
             {[...Array(50)].map((_, i) => (
               <div 
                 key={i} 
@@ -55,7 +68,8 @@ export default function Closing({ onPrev, onRestart }) {
                   top: `${Math.random() * 100}%`,
                   width: `${Math.random() * 3 + 1}px`,
                   height: `${Math.random() * 3 + 1}px`,
-                  animationDelay: `${Math.random() * 4}s`
+                  animationDelay: `${Math.random() * 4}s`,
+                  zIndex: 1
                 }}
               />
             ))}
