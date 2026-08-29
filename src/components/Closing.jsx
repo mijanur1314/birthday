@@ -37,6 +37,8 @@ export default function Closing({ onPrev, onRestart }) {
 
   return (
     <div className="flex-col flex-center" style={{ gap: '1.2rem', minHeight: '60vh', position: 'relative' }}>
+      {/* Preload the large background image so it fades in smoothly later */}
+      <img src="/IMG20251102170822.jpg" style={{ display: 'none' }} alt="" />
       
       <AnimatePresence>
         {interactionStep === 'yes' && (
