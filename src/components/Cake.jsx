@@ -63,6 +63,15 @@ const StandaloneBow = ({ style }) => (
 );
 
 const ElegantBackdrop = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile(); // Check immediately on mount
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <motion.div 
       initial={{ opacity: 0 }} 
@@ -70,25 +79,42 @@ const ElegantBackdrop = () => {
       transition={{ duration: 1.5 }}
       style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}
     >
-      {/* Left Side Balloons */}
-      <ElegantBalloon size={120} delay={0} style={{ top: '6%', left: '5%' }} />
-      <ElegantBalloon size={105} delay={0.5} style={{ top: '18%', left: '16%' }} />
-      <ElegantBalloon size={115} delay={1.2} style={{ top: '32%', left: '6%' }} />
-      
-      {/* Right Side Balloons */}
-      <ElegantBalloon size={120} delay={0.2} style={{ top: '6%', right: '5%' }} />
-      <ElegantBalloon size={105} delay={0.7} style={{ top: '18%', right: '16%' }} />
-      <ElegantBalloon size={115} delay={1.5} style={{ top: '32%', right: '6%' }} />
+      {isMobile ? (
+        <>
+          {/* Mobile Layout: Smaller balloons, tucked into the far edges to avoid overlapping the cake */}
+          <ElegantBalloon size={85} delay={0} style={{ top: '5%', left: '-15px' }} />
+          <ElegantBalloon size={75} delay={1.2} style={{ top: '25%', left: '-25px' }} />
+          
+          <ElegantBalloon size={85} delay={0.2} style={{ top: '5%', right: '-15px' }} />
+          <ElegantBalloon size={75} delay={1.5} style={{ top: '25%', right: '-25px' }} />
 
-      {/* Left Side Bows */}
-      <StandaloneBow style={{ top: '15%', left: '2%' }} />
-      <StandaloneBow style={{ top: '28%', left: '22%' }} />
-      <StandaloneBow style={{ top: '45%', left: '12%' }} />
+          <StandaloneBow style={{ top: '15%', left: '-5px', transform: 'scale(0.8)' }} />
+          <StandaloneBow style={{ top: '15%', right: '-5px', transform: 'scale(0.8)' }} />
+        </>
+      ) : (
+        <>
+          {/* Desktop Layout */}
+          {/* Left Side Balloons */}
+          <ElegantBalloon size={120} delay={0} style={{ top: '6%', left: '5%' }} />
+          <ElegantBalloon size={105} delay={0.5} style={{ top: '18%', left: '16%' }} />
+          <ElegantBalloon size={115} delay={1.2} style={{ top: '32%', left: '6%' }} />
+          
+          {/* Right Side Balloons */}
+          <ElegantBalloon size={120} delay={0.2} style={{ top: '6%', right: '5%' }} />
+          <ElegantBalloon size={105} delay={0.7} style={{ top: '18%', right: '16%' }} />
+          <ElegantBalloon size={115} delay={1.5} style={{ top: '32%', right: '6%' }} />
 
-      {/* Right Side Bows */}
-      <StandaloneBow style={{ top: '15%', right: '2%' }} />
-      <StandaloneBow style={{ top: '28%', right: '22%' }} />
-      <StandaloneBow style={{ top: '45%', right: '12%' }} />
+          {/* Left Side Bows */}
+          <StandaloneBow style={{ top: '15%', left: '2%' }} />
+          <StandaloneBow style={{ top: '28%', left: '22%' }} />
+          <StandaloneBow style={{ top: '45%', left: '12%' }} />
+
+          {/* Right Side Bows */}
+          <StandaloneBow style={{ top: '15%', right: '2%' }} />
+          <StandaloneBow style={{ top: '28%', right: '22%' }} />
+          <StandaloneBow style={{ top: '45%', right: '12%' }} />
+        </>
+      )}
     </motion.div>
   );
 };

@@ -6,6 +6,14 @@ export default function Closing({ onPrev, onRestart }) {
   const [showButton, setShowButton] = useState(false);
   const [interactionStep, setInteractionStep] = useState("initial"); // 'initial', 'question', 'yes'
   const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile(); // Check immediately on mount
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -58,7 +66,7 @@ export default function Closing({ onPrev, onRestart }) {
                 inset: 0,
                 backgroundImage: "url(/IMG20240311124955.jpeg)",
                 backgroundSize: "cover",
-                backgroundPosition: "center",
+                backgroundPosition: isMobile ? "30% center" : "center",
                 opacity: 0.45,
                 zIndex: 0,
               }}
