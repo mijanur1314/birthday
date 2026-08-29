@@ -31,7 +31,7 @@ export default function Splash({ onComplete }) {
     <div className={`splash-screen ${fadeOut ? 'fade-out' : ''}`}>
       <div className={`splash-content ${isZooming ? 'hide-text' : ''}`}>
         <div className={`heart-glow ${isZooming ? 'zoom-in' : ''}`}>♥</div>
-        <h1 className="splash-text">For Nur...</h1>
+        <h1 className="splash-text">For My Bouuuuu...</h1>
       </div>
     </div>
   );
