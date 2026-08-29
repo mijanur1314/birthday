@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Image as ImageIcon } from 'lucide-react';
+
 import { playPaperRustle } from '../utils/sound';
 
 const reasons = [
