@@ -65,8 +65,9 @@ export default function Closing({ onPrev, onRestart }) {
                 position: "absolute",
                 inset: 0,
                 backgroundImage: "url(/IMG20240311124955.jpeg)",
-                backgroundSize: "cover",
-                backgroundPosition: isMobile ? "30% center" : "center",
+                backgroundSize: isMobile ? "contain" : "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
                 opacity: 0.45,
                 zIndex: 0,
               }}
