@@ -1,38 +1,40 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import Stardust from './Stardust';
 
 export default function Splash({ onComplete }) {
   const [isZooming, setIsZooming] = useState(false);
-  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    // 1. Start zooming the heart at 2.5s
+    // Zoom heart at 2.5s
     const zoomTimer = setTimeout(() => {
       setIsZooming(true);
     }, 2500);
 
-    // 2. Start fading out the background at 3.2s
-    const fadeTimer = setTimeout(() => {
-      setFadeOut(true);
-    }, 3200);
-
-    // 3. Complete and unmount splash at 4s
+    // Tell parent to unmount us at 3.5s
+    // Framer motion's AnimatePresence will catch this and play the exit animation perfectly
     const completeTimer = setTimeout(() => {
       onComplete();
-    }, 4000);
+    }, 3500);
 
     return () => {
       clearTimeout(zoomTimer);
-      clearTimeout(fadeTimer);
       clearTimeout(completeTimer);
     };
   }, [onComplete]);
 
   return (
-    <div className={`splash-screen ${fadeOut ? 'fade-out' : ''}`}>
+    <motion.div 
+      className="splash-screen"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, pointerEvents: "none", transition: { duration: 1.2, ease: "easeInOut" } }}
+    >
+      <Stardust />
+      <div className="splash-cinematic-glow"></div>
       <div className={`splash-content ${isZooming ? 'hide-text' : ''}`}>
         <div className={`heart-glow ${isZooming ? 'zoom-in' : ''}`}>♥</div>
         <h1 className="splash-text">For My Bouuuuu...</h1>
       </div>
-    </div>
+    </motion.div>
   );
 }

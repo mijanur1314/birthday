@@ -8,6 +8,21 @@ export default function Closing({ onPrev, onRestart }) {
   const [noPosition, setNoPosition] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
 
+  const [stars] = useState(() => [...Array(50)].map((_, i) => (
+    <div
+      key={i}
+      className="star"
+      style={{
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        width: `${Math.random() * 3 + 1}px`,
+        height: `${Math.random() * 3 + 1}px`,
+        animationDelay: `${Math.random() * 4}s`,
+        zIndex: 1,
+      }}
+    />
+  )));
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile(); // Check immediately on mount
@@ -73,20 +88,7 @@ export default function Closing({ onPrev, onRestart }) {
               }}
             />
 
-            {[...Array(50)].map((_, i) => (
-              <div
-                key={i}
-                className="star"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  width: `${Math.random() * 3 + 1}px`,
-                  height: `${Math.random() * 3 + 1}px`,
-                  animationDelay: `${Math.random() * 4}s`,
-                  zIndex: 1,
-                }}
-              />
-            ))}
+            {stars}
           </motion.div>
         )}
       </AnimatePresence>
@@ -188,18 +190,44 @@ export default function Closing({ onPrev, onRestart }) {
           >
             I knew it! ❤️
           </div>
-          <p
-            className="closing-sub serif-italic white-text"
-            style={{ marginBottom: "2.5rem", fontSize: "1.5rem" }}
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 1 }}
+            className="bangla-note"
+            style={{
+              background: "rgba(255, 255, 255, 0.9)",
+              padding: "2rem",
+              borderRadius: "12px",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+              maxWidth: "500px",
+              margin: "2rem 1rem",
+              position: "relative",
+              zIndex: 10
+            }}
           >
-            I love you too. Forever.
-          </p>
+            <p style={{ fontFamily: "serif", fontSize: "1.2rem", lineHeight: "1.8", color: "#333", marginBottom: "1rem" }}>
+              আল্লাহ যেন তোমার জীবনটা সবসময় শান্তি, সুখ আর ভালোবাসায় ভরে রাখেন।<br/>
+              তোমার সব ভালো স্বপ্ন যেন একদিন সত্যি হয়।<br/>
+              তুমি যেন সবসময় হাসিখুশি থাকো, সুস্থ থাকো, আর আমার জীবনে এভাবেই থেকো।
+            </p>
+            <p style={{ fontFamily: "serif", fontSize: "1.2rem", lineHeight: "1.8", color: "#333", marginBottom: "1rem" }}>
+              আমি আল্লাহর কাছে সবসময় তোমাকে চাই,<br/>
+              আমার দুনিয়া আর আখিরাতের সঙ্গী হিসেবে।
+            </p>
+            <p style={{ fontFamily: "serif", fontSize: "1.3rem", fontWeight: "bold", color: "var(--magenta)", marginTop: "1.5rem" }}>
+              শুভ জন্মদিন, আমার নূর 💝💚<br/>
+              আমি তোমাকে অনেক অনেক ভালোবাসি গো সোনা 😚🫂
+            </p>
+          </motion.div>
+
           <button
             className="next-btn"
             onClick={onRestart}
             style={{ boxShadow: "0 0 20px rgba(194, 24, 91, 0.8)" }}
           >
-            Done
+            Start Again
           </button>
         </>
       )}

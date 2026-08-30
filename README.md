@@ -1,21 +1,23 @@
 # 💝 Romantic Interactive Birthday Web App
 
-A highly interactive, cinematic, and deeply personalized React web application designed to be the ultimate digital birthday gift for your girlfriend/partner. 
+A highly interactive, cinematic, and deeply personalized React web application designed to be the ultimate digital birthday gift for your partner.
 
-Unlike a standard webpage, this app mimics the feeling of physical gifts through microphone interactions, beautiful cinematic animations, and elegant interactive elements.
+Unlike a standard webpage, this app mimics the feeling of physical gifts through microphone interactions, beautiful cinematic animations, interactive polaroids, hidden letters, and elegant glassmorphism UI.
 
 ## ✨ Features
 
-- **Cinematic Splash Screen:** A beautiful intro with a glowing, beating heart that transitions into the app with a personalized message ("For My Bouuuuu...").
+- **Cinematic Splash Screen:** A beautiful intro with a glowing, beating heart that transitions into the app with a personalized message.
+- **Global Background Music:** A floating music toggle that plays a continuous romantic track (`bgm.mp3`) across the entire experience.
 - **Physical Envelope:** A glassmorphism envelope that opens with a physically accurate animation.
 - **Live Typewriter Letter:** Your personalized love letter slowly types itself out on the screen.
-- **Interactive Storybook:** A responsive 3D-styled photo album that flips through your favorite memories.
-- **Flip Cards:** Interactive cards revealing all the reasons you love her.
-- **Interactive Blow-Out Cake:** A beautifully rendered 3D vector cake. By blowing into the device's **microphone**, the user physically blows out the digital candles!
-- **Elegant Ribbon Backdrop:** Soft, romantic white balloons with pink satin bows and curling ribbons elegantly frame the sides of the screen.
-- **Interactive Gift Boxes:** Once the candles are blown out, special animated gift boxes appear. Tapping them reveals delightful surprises (🧸 Teddy, 🍫 Chocolate, 🌹 Rose, 💍 Ring).
-- **Interactive Stardust:** Touching or dragging a finger across the screen leaves a glowing trail of magical pink stardust.
-- **Hidden Easter Egg:** A tiny, almost invisible star hidden in the corner that reveals a secret pop-up message when tapped.
+- **Interactive Storybook:** A responsive 3D-styled photo album that flips through your favorite memories, complete with beautiful placeholder dates.
+- **Flip Cards (Reasons):** Interactive cards revealing all the reasons you love her.
+- **Promises:** Beautifully styled cards detailing the romantic promises you make to her.
+- **"Open When..." Letters:** A charming grid of mini-envelopes that, when clicked, slide open to reveal secret glassmorphism letters (e.g., "Open when you miss me").
+- **Clickable Polaroid Wall:** A beautiful scattered wall of polaroid photos. Clicking a photo smoothly zooms it to the center of the screen, dimming the background and revealing a long, private caption underneath.
+- **Personal Video Message:** A dedicated page for her to play a special video message (`message.mp4`) from you, seamlessly pausing the background music.
+- **Interactive Blow-Out Cake:** A beautifully rendered 3D vector cake. By blowing into the device's **microphone**, she physically blows out the digital candles!
+- **Handwritten Bangla Dua:** After answering the final question ("Do you love me?"), a deeply personal handwritten-style Bangla prayer fades in on a softly glowing white note card.
 
 ## 🛠️ How to Customize for Your Partner
 
@@ -23,18 +25,21 @@ This repository is designed to be easily customizable. Clone it and replace the 
 
 ### 1. Change the Photos and Audio
 - Go to the `public/` folder.
-- Add an optional `music.mp3` if you want persistent background music.
+- Add `bgm.mp3` for the persistent background music.
 - Replace `birthday_tune.mp3` with the song you want to play when the cake candles are blown out.
-- Add your favorite couple photos into the `public/` folder.
+- Add `message.mp4` for the personal video note.
+- Add your favorite couple photos into the `public/` folder. *(Note: Compress large files if deploying to the web!)*
 
 ### 2. Update the Text
 You will need to edit a few specific React components in the `src/components/` folder:
-- **`Splash.jsx`**: Update the intro text ("For My Bouuuuu...").
-- **`Letter.jsx`**: Update the `paragraphs` array at the top of the file with your own heartfelt letter.
-- **`StoryBook.jsx`**: Update the `pages` array to point to your new photos in the `public/` folder, and write custom captions for each photo.
-- **`Reasons.jsx`**: Update the `reasons` array with your actual personal reasons why you love her.
-- **`App.jsx`**: Change the Easter Egg message at the very bottom of the file.
-- **`Closing.jsx`**: Update names and dates.
+- **`Splash.jsx`**: Update the intro text.
+- **`Letter.jsx`**: Update the `paragraphs` array with your heartfelt letter.
+- **`StoryBook.jsx`**: Update the `storyPages` array to point to your new photos and write custom captions/dates.
+- **`Reasons.jsx`**: Update the `reasons` array with your personal reasons.
+- **`Promises.jsx`**: Update the `promises` array.
+- **`OpenWhen.jsx`**: Customize the letters inside the `envelopes` array.
+- **`PolaroidWall.jsx`**: Update the `polaroids` array with your photos and long captions.
+- **`Closing.jsx`**: Update the final questions, names, and the handwritten Bangla dua.
 
 ## 🚀 Running Locally
 

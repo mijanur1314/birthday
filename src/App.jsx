@@ -1,10 +1,15 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import FloatingHearts from './components/FloatingHearts';
+import { Music, VolumeX } from 'lucide-react';
+import RosePetals from './components/RosePetals';
 import Envelope from './components/Envelope';
 import Letter from './components/Letter';
 import StoryBook from './components/StoryBook';
 import Reasons from './components/Reasons';
+import Promises from './components/Promises';
+import OpenWhen from './components/OpenWhen';
+import PolaroidWall from './components/PolaroidWall';
+import VoiceNote from './components/VoiceNote';
 import Cake from './components/Cake';
 import Closing from './components/Closing';
 
@@ -18,6 +23,10 @@ const pageOrder = [
   'letter',
   'story',
   'reasons',
+  'promises',
+  'openwhen',
+  'polaroids',
+  'voicenote',
   'cake',
   'closing'
 ];
@@ -29,13 +38,54 @@ export default function App() {
   const [litCandles, setLitCandles] = useState([true, true, true]);
   
   const [currentStep, setCurrentStep] = useState('envelope');
-  const audioRef = useRef(null);
   const cakeAudioRef = useRef(null);
+  const bgmAudioRef = useRef(null);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
   useEffect(() => {
     cakeAudioRef.current = new Audio('/birthday_tune.mp3');
     cakeAudioRef.current.volume = 0.8;
+    
+    bgmAudioRef.current = new Audio('/bgm.mp3'); // User needs to add bgm.mp3 to public folder
+    bgmAudioRef.current.loop = true;
+    bgmAudioRef.current.volume = 0.4;
   }, []);
+
+  const toggleMusic = () => {
+    if (!bgmAudioRef.current) return;
+    if (isMusicPlaying) {
+      bgmAudioRef.current.pause();
+      setIsMusicPlaying(false);
+    } else {
+      bgmAudioRef.current.play()
+        .then(() => setIsMusicPlaying(true))
+        .catch(e => console.log("Add bgm.mp3 to public folder for music!", e));
+    }
+  };
+
+  const pauseMusic = useCallback(() => {
+    if (bgmAudioRef.current && isMusicPlaying) {
+      bgmAudioRef.current.pause();
+      setIsMusicPlaying(false);
+    }
+  }, [isMusicPlaying]);
+
+  useEffect(() => {
+    // Auto pause BGM when entering Cake page
+    if (currentStep === 'cake') {
+      pauseMusic();
+    }
+  }, [currentStep, pauseMusic]);
+
+  const startApp = () => {
+    setShowSplash(false);
+    // Start music on first interaction
+    if (bgmAudioRef.current) {
+      bgmAudioRef.current.play().then(() => {
+        setIsMusicPlaying(true);
+      }).catch(e => console.log("Add bgm.mp3 to public folder for music!", e));
+    }
+  };
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -56,14 +106,12 @@ export default function App() {
   const goToNextStep = () => {
     if (stepIndex < pageOrder.length - 1) {
       setCurrentStep(pageOrder[stepIndex + 1]);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const goToPrevStep = () => {
     if (stepIndex > 0) {
       setCurrentStep(pageOrder[stepIndex - 1]);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -84,16 +132,21 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  if (showSplash) {
-    return <Splash onComplete={() => setShowSplash(false)} />;
-  }
-
   return (
     <>
-      <FloatingHearts />
-      <Stardust />
+      {/* Background effects constantly running */}
+      <RosePetals />
       
-      {/* Secret Easter Egg Trigger */}
+      {!showSplash && (
+        <button 
+          onClick={toggleMusic} 
+          className="music-toggle-btn"
+          title="Toggle Background Music"
+        >
+          {isMusicPlaying ? <Music size={20} color="#fff" /> : <VolumeX size={20} color="rgba(255,255,255,0.6)" />}
+        </button>
+      )}
+      <Stardust />
       <div 
         className="secret-star" 
         onContextMenu={(e) => {
@@ -109,6 +162,10 @@ export default function App() {
         ✨
       </div>
 
+      <AnimatePresence>
+        {showSplash && <Splash key="splash" onComplete={startApp} />}
+      </AnimatePresence>
+
       {/* Progress Dots */}
       <div className="page-progress">
         {pageOrder.map((step, idx) => (
@@ -120,20 +177,26 @@ export default function App() {
       </div>
 
       <main className="fixed-inset">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" onExitComplete={() => {
+          const mainScroll = document.querySelector('.fixed-inset');
+          if (mainScroll) mainScroll.scrollTo(0, 0);
+        }}>
           <motion.div
             key={currentStep}
-            initial={{ opacity: 0, rotateY: 90, scale: 0.95 }}
-            animate={{ opacity: 1, rotateY: 0, scale: 1 }}
-            exit={{ opacity: 0, rotateY: -90, scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 120, damping: 20 }}
+            initial={{ opacity: 0, scale: 0.98, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.98, y: -15 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="view-container"
-            style={{ transformOrigin: "left center", perspective: "1500px" }}
           >
             {currentStep === 'envelope' && <TiltWrapper><Envelope onOpen={handleEnvelopeOpen} /></TiltWrapper>}
             {currentStep === 'letter' && <TiltWrapper maxTilt={10}><Letter onNext={goToNextStep} /></TiltWrapper>}
             {currentStep === 'story' && <TiltWrapper maxTilt={8}><StoryBook onNext={goToNextStep} onPrev={goToPrevStep} /></TiltWrapper>}
             {currentStep === 'reasons' && <TiltWrapper maxTilt={6}><Reasons onNext={goToNextStep} onPrev={goToPrevStep} /></TiltWrapper>}
+            {currentStep === 'promises' && <TiltWrapper maxTilt={5}><Promises onNext={goToNextStep} onPrev={goToPrevStep} /></TiltWrapper>}
+            {currentStep === 'openwhen' && <OpenWhen onNext={goToNextStep} onPrev={goToPrevStep} />}
+            {currentStep === 'polaroids' && <PolaroidWall onNext={goToNextStep} onPrev={goToPrevStep} />}
+            {currentStep === 'voicenote' && <TiltWrapper maxTilt={4}><VoiceNote onNext={goToNextStep} onPrev={goToPrevStep} onPlayVideo={pauseMusic} /></TiltWrapper>}
             {currentStep === 'cake' && <Cake onNext={goToNextStep} onPrev={goToPrevStep} cakeAudioRef={cakeAudioRef} cakeBlown={cakeBlown} onCakeBlown={() => setCakeBlown(true)} litCandles={litCandles} setLitCandles={setLitCandles} />}
             {currentStep === 'closing' && <Closing onPrev={goToPrevStep} onRestart={restartApp} />}
           </motion.div>

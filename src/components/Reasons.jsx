@@ -1,14 +1,14 @@
 import { useState } from 'react';
-
+import { motion } from 'framer-motion';
 import { playPaperRustle } from '../utils/sound';
 
 const reasons = [
-  { text: "যেইভাবে তুমি আমার যত্ন নাও, রেগে থাকলেও তুমি যতই দেখাও তুমি আমার জন্য care করোনা কিন্তু আমি বুঝতে পারি সব", image: "/IMG20260121162040.jpg" },
+  { text: "যেইভাবে তুমি আমার সবসময় যত্ন নাও, আমার খেয়াল রাখো এবং রেগে থাকলেও যেইভাবে আমার সবকিছু প্রতি লক্ষ্য রাখো সেটার জন্য তোমার যতই সুনাম করি ততই কম গো", image: "/IMG20260121162040.jpg" },
   { text: "তুমি যেইভাবে সব জিনিস একসাথে ম্যানেজ করো, সেটা দেখে আমিও অবাক হয়ে যায়, সেটা দেখে আরও তোমার প্রতি সম্মান বেড়ে যায়", image: "/IMG20260125144210.jpg" },
   { text: "তুমি যেইভাবে আমাদের ভবিষ্যত নিয়ে ভাবো, যেইভাবে সেটা সবসময় চাও আল্লাহ কাছে ওটা দেখে আরও তোমার প্রেমে পড়ে যায়", image: "/IMG20260131161049.jpg" },
   { text: "যেইভাবে তুমি সবসময় সব বিষয় নিয়ে বিনা দ্বিধায় আমার সাথে কথা বলো কোনো সংকোচ, কোনো লিমিট ছাড়াই ওটা দেখে আমার খুব ভালো লাগে গো", image: "/IMG20260407185414.jpg" },
   { text: "তোমার সাথে থাকলে সময় কীভাবে মুহূর্তের মধ্যে ফুরিয়ে যায় বুঝতেই পারিনা, তুমি যেকোনো সাধারণ জিনিস কেও আমার জন্য অসাধারণ করে তোলো", image: "/IMG20260808153139.jpg" },
-  { text: "শেষে এটাই বলবো গো যে তোমাকে ছাড়া বাঁচবোনা গো, তুমি এখন আমার জীবনের সব, তোমাকেও আমার অর্ধাঙ্গিনী হিসাবে আল্লাহ কাছে চায় সবসময়", image: "/IMG_20250518_210710.jpg" }
+  { text: "শেষে এটাই বলবো গো যে তোমাকে ছাড়া বাঁচবোনা গো, তুমি এখন আমার জীবনের সব, তোমাকে আমার অর্ধাঙ্গিনী হিসাবে আল্লাহ কাছে চায় সবসময়", image: "/IMG_20250518_210710.jpg" }
 ];
 
 export default function Reasons({ onNext, onPrev }) {
@@ -28,21 +28,25 @@ export default function Reasons({ onNext, onPrev }) {
       
       <div className="cards">
         {reasons.map((reason, i) => (
-          <div 
+          <motion.div 
             key={i} 
             className={`flip-card ${flipped[i] ? 'flipped' : ''}`}
             onClick={() => toggleFlip(i)}
+            whileHover={{ scale: 1.05, y: -5, rotateZ: i % 2 === 0 ? 1 : -1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <div className="flip-inner">
               <div className="flip-front">
                 <img 
                   src={reason.image} 
                   alt="Reason" 
+                  loading="lazy"
+                  decoding="async"
                   style={{ 
                     width: '100%', 
                     height: '110px', 
                     objectFit: 'contain', 
-                    backgroundColor: '#fff',
+                    backgroundColor: 'rgba(255,255,255,0.7)',
                     borderRadius: '6px', 
                     marginBottom: '0.5rem',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
@@ -58,7 +62,7 @@ export default function Reasons({ onNext, onPrev }) {
                 <div className="glare"></div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -73,7 +77,7 @@ export default function Reasons({ onNext, onPrev }) {
           &uarr; back
         </button>
         <button className="next-btn" onClick={onNext}>
-          make a wish &darr;
+          next &darr;
         </button>
       </div>
     </div>

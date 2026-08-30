@@ -4,20 +4,15 @@ import { motion } from 'framer-motion';
 const symbols = ['🩷', '💗', '♡'];
 
 export default function FloatingHearts() {
-  const [hearts, setHearts] = useState([]);
-
-  useEffect(() => {
-    const generated = Array.from({ length: 18 }).map((_, i) => ({
-      id: i,
-      symbol: symbols[Math.floor(Math.random() * symbols.length)],
-      left: Math.random() * 100,
-      drift: Math.random() * 80 - 40,
-      duration: 10 + Math.random() * 10,
-      delay: Math.random() * 10,
-      size: 1 + Math.random() * 1.2
-    }));
-    setHearts(generated);
-  }, []);
+  const [hearts] = useState(() => Array.from({ length: 18 }).map((_, i) => ({
+    id: i,
+    symbol: symbols[Math.floor(Math.random() * symbols.length)],
+    left: Math.random() * 100,
+    drift: Math.random() * 80 - 40,
+    duration: 10 + Math.random() * 10,
+    delay: Math.random() * 10,
+    size: 1 + Math.random() * 1.2
+  })));
 
   return (
     <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 1, overflow: 'hidden' }}>

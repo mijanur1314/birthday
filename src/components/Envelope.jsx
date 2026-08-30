@@ -18,6 +18,7 @@ export default function Envelope({ onOpen }) {
         <div className="hero-sub script">Nur</div>
       </div>
       
+      <div className="cinematic-glow"></div>
       <div className={`envelope ${opened ? 'open' : ''}`}>
         <div className="env-body paper-texture">
           <div className="env-shade-left"></div>

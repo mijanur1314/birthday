@@ -189,15 +189,16 @@ export default function Cake({
     let analyser;
     let microphone;
     let animationFrame;
+    let mediaStream;
 
     const initMic = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
+        mediaStream = await navigator.mediaDevices.getUserMedia({
           audio: true,
         });
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
         analyser = audioContext.createAnalyser();
-        microphone = audioContext.createMediaStreamSource(stream);
+        microphone = audioContext.createMediaStreamSource(mediaStream);
 
         analyser.fftSize = 256;
         microphone.connect(analyser);
@@ -257,6 +258,9 @@ export default function Cake({
       if (audioContext && audioContext.state !== "closed") {
         audioContext.close();
       }
+      if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+      }
     };
   }, [allOut]);
 
@@ -310,9 +314,14 @@ export default function Cake({
       };
       frame();
 
+      // Play birthday tune if we have the ref
+      if (cakeAudioRef && cakeAudioRef.current) {
+        cakeAudioRef.current.play().catch(e => console.log("Audio play failed:", e));
+      }
+
       setTimeout(() => setShowNext(true), 1500);
     }
-  }, [litCandles, allOut]);
+  }, [litCandles, allOut, onCakeBlown, cakeAudioRef]);
 
   return (
     <div
@@ -326,6 +335,8 @@ export default function Cake({
       <div className="section-title">Blow out the candles</div>
 
       <div className="cake-wrap" style={{ position: "relative" }}>
+        <div className="cinematic-glow" style={{ top: "40%", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(233,81,143,0.3) 0%, rgba(233,81,143,0) 70%)" }}></div>
+        <div className="cake-stand">
         <svg
           id="cakeSvg"
           width="300"
@@ -715,6 +726,7 @@ export default function Cake({
               </motion.div>
             ))}
         </AnimatePresence>
+      </div>
       </div>
 
       {!allOut && (
