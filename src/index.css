@@ -1177,6 +1177,7 @@ button,
   cursor: grab;
   touch-action: none;
   width: 180px;
+  will-change: transform, cursor;
 }
 .interactive-polaroid:active {
   cursor: grabbing;
@@ -1195,6 +1196,9 @@ button,
   height: 160px;
   object-fit: cover;
   border-radius: 2px;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 .interactive-polaroid-inner p.script {
   margin-top: 15px;

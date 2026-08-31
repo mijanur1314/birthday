@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const polaroids = [
@@ -13,6 +13,13 @@ const polaroids = [
 export default function PolaroidWall({ onNext, onPrev }) {
   const containerRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    // Wait for page transition to finish before mounting heavy images to prevent stutter
+    const t = setTimeout(() => setIsReady(true), 500);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <div className="polaroid-wall-container" ref={containerRef}>
@@ -20,7 +27,7 @@ export default function PolaroidWall({ onNext, onPrev }) {
       <p className="section-eyebrow text-center" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '2rem' }}>(Drag the photos around!)</p>
       
       <div className="polaroids-area">
-        {polaroids.map((p, idx) => (
+        {isReady && polaroids.map((p, idx) => (
           <motion.div
             key={p.id}
             layoutId={`polaroid-${p.id}`}
@@ -44,7 +51,7 @@ export default function PolaroidWall({ onNext, onPrev }) {
             }}
           >
             <div className="interactive-polaroid-inner">
-              <img src={p.image} alt={p.caption} draggable="false" loading="lazy" decoding="async" />
+              <img src={p.image} alt={p.caption} draggable="false" />
               <p className="script">{p.caption}</p>
             </div>
           </motion.div>

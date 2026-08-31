@@ -24,14 +24,17 @@ Unlike a standard webpage, this app mimics the feeling of physical gifts through
 This repository is designed to be easily customizable. Clone it and replace the assets and text with your own!
 
 ### 1. Change the Photos and Audio
+
 - Go to the `public/` folder.
 - Add `bgm.mp3` for the persistent background music.
 - Replace `birthday_tune.mp3` with the song you want to play when the cake candles are blown out.
 - Add `message.mp4` for the personal video note.
-- Add your favorite couple photos into the `public/` folder. *(Note: Compress large files if deploying to the web!)*
+- Add your favorite couple photos into the `public/` folder. _(Note: Compress large files if deploying to the web!)_
 
 ### 2. Update the Text
+
 You will need to edit a few specific React components in the `src/components/` folder:
+
 - **`Splash.jsx`**: Update the intro text.
 - **`Letter.jsx`**: Update the `paragraphs` array with your heartfelt letter.
 - **`StoryBook.jsx`**: Update the `storyPages` array to point to your new photos and write custom captions/dates.
@@ -60,10 +63,12 @@ This project is built with React and Vite.
 Since this is a standard Vite React app, deployment is incredibly easy and free.
 
 **Recommended: Vercel**
+
 1. Push your customized code to your own GitHub repository.
 2. Go to [Vercel](https://vercel.com) and log in.
 3. Click **Add New Project**, select your repository, and click **Deploy**.
-4. Send the link to your partner! 
+4. Send the link to your partner!
 
 ---
-*Made with ❤️ and React.*
+
+_Made with ❤️ and React._

@@ -31,6 +31,20 @@ const pageOrder = [
   'closing'
 ];
 
+const imagesToPreload = [
+  "/IMG-20220226-WA0036.jpeg",
+  "/DSC07689.jpeg",
+  "/DSC06207.jpeg",
+  "/IMG-20251025-WA0023.jpeg",
+  "/IMG-20220224-WA0002.jpeg",
+  "/IMG20250928131346.jpeg",
+  "/DSC05007.jpg",
+  "/IMG-20250716-WA0016.jpg",
+  "/IMG20240418145840.jpg",
+  "/IMG20240629152247.jpg",
+  "/IMG20251102170822.jpg"
+];
+
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
@@ -134,6 +148,13 @@ export default function App() {
 
   return (
     <>
+      {/* Invisible DOM preloader for heavy uncompressed images */}
+      <div style={{ opacity: 0, position: 'absolute', pointerEvents: 'none', width: 1, height: 1, overflow: 'hidden', zIndex: -9999 }}>
+        {imagesToPreload.map(src => (
+          <img key={src} src={src} alt="preload" decoding="sync" />
+        ))}
+      </div>
+
       {/* Background effects constantly running */}
       <RosePetals />
       
