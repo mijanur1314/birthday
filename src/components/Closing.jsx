@@ -217,7 +217,7 @@ export default function Closing({ onPrev, onRestart }) {
               আমার দুনিয়া আর আখিরাতের সঙ্গী হিসেবে।
             </p>
             <p style={{ fontFamily: "serif", fontSize: "1.3rem", fontWeight: "bold", color: "var(--magenta)", marginTop: "1.5rem" }}>
-              শুভ জন্মদিন, আমার নূর 💝💚<br/>
+              শুভ জন্মদিন, আমার নুর 👸🏻💝💚<br/>
               আমি তোমাকে অনেক অনেক ভালোবাসি গো সোনা 😚🫂
             </p>
           </motion.div>
