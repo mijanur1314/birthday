@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // A single realistic rose petal SVG
 const PetalSVG = ({ size = 24, color = "#ff2a5f", opacity = 0.8 }) => (

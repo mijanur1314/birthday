@@ -33,16 +33,16 @@ This repository is designed to be easily customizable. Clone it and replace the 
 
 ### 2. Update the Text
 
-You will need to edit a few specific React components in the `src/components/` folder:
+You will need to edit the specific files in the `src/data/` folder:
 
-- **`Splash.jsx`**: Update the intro text.
-- **`Letter.jsx`**: Update the `paragraphs` array with your heartfelt letter.
-- **`StoryBook.jsx`**: Update the `storyPages` array to point to your new photos and write custom captions/dates.
-- **`Reasons.jsx`**: Update the `reasons` array with your personal reasons.
-- **`Promises.jsx`**: Update the `promises` array.
-- **`OpenWhen.jsx`**: Customize the letters inside the `envelopes` array.
-- **`PolaroidWall.jsx`**: Update the `polaroids` array with your photos and long captions.
-- **`Closing.jsx`**: Update the final questions, names, and the handwritten Bangla dua.
+- **`src/data/letter.js`**: Update the `paragraphs` array with your heartfelt letter.
+- **`src/data/storyPages.js`**: Update the `storyPages` array to point to your new photos and write custom captions/dates.
+- **`src/data/reasons.js`**: Update the `reasons` array with your personal reasons.
+- **`src/data/promises.js`**: Update the `promisesList` array.
+- **`src/data/openWhen.js`**: Customize the letters inside the `letters` array.
+- **`src/data/polaroids.js`**: Update the `polaroids` array with your photos and long captions.
+
+*(Note: The intro text in `Splash.jsx` and the final dua in `Closing.jsx` are still located in `src/components/`)*
 
 ## 🚀 Running Locally
 

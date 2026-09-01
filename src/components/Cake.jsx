@@ -285,6 +285,7 @@ export default function Cake({
 
   useEffect(() => {
     if (litCandles.every((c) => !c) && !allOut) {
+      // eslint-disable-next-line react/set-state-in-effect
       setAllOut(true);
       if (onCakeBlown) onCakeBlown();
 

@@ -3,13 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import { playPaperRustle } from '../utils/sound';
 
-const storyPages = [
-  { date: "May 10", icon: "☕", title: "The day we first talked", text: "তোমাদের স্কুলে কম্পিটেশনে গিয়ে প্রথমবারের মতো তোমার সাথে লজ্জা পেতে পেতে কথা বলেছিলাম", image: "/DSC05007.jpg" },
-  { date: "Our special day", icon: "📍", title: "The first time we met", text: "প্রথম দিন যখন দেখা হয়েছিল তখন ফিলিংস কিরকম ছিল সেটা তো মনে নেই কিন্তু এখন প্রতিটা দিন প্রথম দিন মনে হয়, প্রতিদিন মনে হয় তোমাকে নতুন করে দেখছি, নতুন করে প্রেমে পড়ছি", image: "/IMG-20250716-WA0016.jpg" },
-  { date: "Our challenging times", icon: "🌧️", title: "A moment that tested us", text: "যখন আমার মেসেজগুলো তোমার পাপা দেখে নিয়েছিল, যখন মাসের পর মাস দেখা হয়নি করোনা সময়, এত তুমুল ঝগড়ার পরেও আজ আমরা একসাথে আছি এটাই আমার সবচেয়ে বড়ো পাওনা", image: "/IMG20240418145840.jpg" },
-  { date: "Our favorite memory", icon: "😂", title: "The inside joke that never gets old", text: "একে অপরকে সবসময় রোস্ট করা, সব সময় রাগানো, এটাই আমাদের সবচেয়ে বড় এন্টারটেইনমেন্টের একটা রাস্তা, এইজন্যই আমরা একে অপরের প্রতি bore হয়না", image: "/IMG20240629152247.jpg" },
-  { date: "September 8", icon: "🩷", title: "Right now", text: "এখন শুধু একটা কথাই বলতে পারি তুমি আমার শরীরের একটা অঙ্গের মতো হয়ে গেছো যেটাকে ছাড়া আমি থাকতেই পারবো না, তোমাকে ছাড়া এক মুহূর্ত ভাবতেও পারি না এখন, সব সময় তোমাকে চাই, এইভাবেই সবসময় তোমার সাথে থাকবো, তোমার যত্ন নেবো, তোমাকে হাসাবো, তোমাকে ভালো রাখার চেষ্টা করবো গো সোনা", image: "/IMG20251102170822.jpg" }
-];
+import { storyPages } from '../data/storyPages';
 
 export default function StoryBook({ onNext, onPrev }) {
   const [index, setIndex] = useState(0);
