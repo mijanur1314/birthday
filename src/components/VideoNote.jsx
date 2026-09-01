@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
 
-export default function VoiceNote({ onNext, onPrev, onPlayVideo }) {
+export default function VideoNote({ onNext, onPrev, onPlayVideo }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const mediaRef = useRef(null);
@@ -66,7 +66,7 @@ export default function VoiceNote({ onNext, onPrev, onPlayVideo }) {
   };
 
   return (
-    <div className="voice-note-container glass-panel">
+    <div className="video-note-container glass-panel">
       <div className="section-eyebrow">Look at me</div>
       <h2 className="section-title">A Message For You</h2>
       

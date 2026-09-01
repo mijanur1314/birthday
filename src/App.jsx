@@ -9,7 +9,7 @@ import Reasons from './components/Reasons';
 import Promises from './components/Promises';
 import OpenWhen from './components/OpenWhen';
 import PolaroidWall from './components/PolaroidWall';
-import VoiceNote from './components/VoiceNote';
+import VideoNote from './components/VideoNote';
 import Cake from './components/Cake';
 import Closing from './components/Closing';
 
@@ -26,7 +26,7 @@ const pageOrder = [
   'promises',
   'openwhen',
   'polaroids',
-  'voicenote',
+  'videonote',
   'cake',
   'closing'
 ];
@@ -217,7 +217,7 @@ export default function App() {
             {currentStep === 'promises' && <TiltWrapper maxTilt={5}><Promises onNext={goToNextStep} onPrev={goToPrevStep} /></TiltWrapper>}
             {currentStep === 'openwhen' && <OpenWhen onNext={goToNextStep} onPrev={goToPrevStep} />}
             {currentStep === 'polaroids' && <PolaroidWall onNext={goToNextStep} onPrev={goToPrevStep} />}
-            {currentStep === 'voicenote' && <TiltWrapper maxTilt={4}><VoiceNote onNext={goToNextStep} onPrev={goToPrevStep} onPlayVideo={pauseMusic} /></TiltWrapper>}
+            {currentStep === 'videonote' && <TiltWrapper maxTilt={4}><VideoNote onNext={goToNextStep} onPrev={goToPrevStep} onPlayVideo={pauseMusic} /></TiltWrapper>}
             {currentStep === 'cake' && <Cake onNext={goToNextStep} onPrev={goToPrevStep} cakeAudioRef={cakeAudioRef} cakeBlown={cakeBlown} onCakeBlown={() => setCakeBlown(true)} litCandles={litCandles} setLitCandles={setLitCandles} />}
             {currentStep === 'closing' && <Closing onPrev={goToPrevStep} onRestart={restartApp} />}
           </motion.div>
