@@ -106,11 +106,11 @@ export default function App() {
       if (document.hidden) {
         document.title = "Come back 🥺";
       } else {
-        document.title = "Happy Birthday, Nur 💖";
+        document.title = "Happy Birthday, Nourin Islam 💖";
       }
     };
     
-    document.title = "Happy Birthday, Nur 💖";
+    document.title = "Happy Birthday, Nourin Islam 💖";
     document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, []);
