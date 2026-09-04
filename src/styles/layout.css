@@ -117,3 +117,40 @@
   border-radius: 16px;
   position: relative;
 }
+
+/* Countdown Styles */
+.countdown-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-gradient);
+  backdrop-filter: blur(10px);
+}
+.countdown-timer .time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 1rem 1.2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  min-width: 80px;
+}
+.countdown-timer .time-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--magenta);
+  line-height: 1;
+}
+.countdown-timer .time-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+

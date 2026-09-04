@@ -16,7 +16,9 @@ import Closing from './components/Closing';
 import TiltWrapper from './components/TiltWrapper';
 import Splash from './components/Splash';
 import Stardust from './components/Stardust';
+import Countdown from './components/Countdown';
 import { playChime } from './utils/sound';
+import { config } from './data/config';
 
 const pageOrder = [
   'envelope',
@@ -46,6 +48,13 @@ const imagesToPreload = [
 ];
 
 export default function App() {
+  const [showCountdown, setShowCountdown] = useState(() => {
+    // Secret bypass for the developer: append ?dev=true to the URL
+    if (window.location.search.includes('dev=true')) return false;
+    
+    if (!config.enableTimer) return false;
+    return (+new Date(config.targetDate) - +new Date()) > 0;
+  });
   const [showSplash, setShowSplash] = useState(true);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
   const [cakeBlown, setCakeBlown] = useState(false);
@@ -157,17 +166,25 @@ export default function App() {
 
       {/* Background effects constantly running */}
       <RosePetals />
-      
-      {!showSplash && (
-        <button 
-          onClick={toggleMusic} 
-          className="music-toggle-btn"
-          title="Toggle Background Music"
-        >
-          {isMusicPlaying ? <Music size={20} color="#fff" /> : <VolumeX size={20} color="rgba(255,255,255,0.6)" />}
-        </button>
-      )}
-      <Stardust />
+
+      <AnimatePresence>
+        {showCountdown && (
+          <Countdown key="countdown" onComplete={() => setShowCountdown(false)} />
+        )}
+      </AnimatePresence>
+
+      {!showCountdown && (
+        <>
+          {!showSplash && (
+            <button 
+              onClick={toggleMusic} 
+              className="music-toggle-btn"
+              title="Toggle Background Music"
+            >
+              {isMusicPlaying ? <Music size={20} color="#fff" /> : <VolumeX size={20} color="rgba(255,255,255,0.6)" />}
+            </button>
+          )}
+          <Stardust />
       <div 
         className="secret-star" 
         onContextMenu={(e) => {
@@ -242,6 +259,8 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      </>
+      )}
     </>
   );
 }
