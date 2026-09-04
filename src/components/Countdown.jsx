@@ -46,23 +46,11 @@ export default function Countdown({ onComplete }) {
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
     >
-      <div className="countdown-content glass-panel"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '3rem 2rem',
-          borderRadius: '24px',
-          textAlign: 'center',
-          maxWidth: '90vw',
-          width: '500px'
-        }}
-      >
+      <div className="countdown-content glass-panel">
         <div className="section-eyebrow">Just a little longer...</div>
-        <h2 className="section-title" style={{ marginBottom: '2rem' }}>Your Surprise Unlocks In</h2>
+        <h2 className="section-title">Your Surprise Unlocks In</h2>
         
-        <div className="countdown-timer" style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+        <div className="countdown-timer">
           {timeLeft.days > 0 && (
             <div className="time-box">
               <span className="time-value">{timeLeft.days}</span>
