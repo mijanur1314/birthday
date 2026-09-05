@@ -220,13 +220,7 @@ export default function Cake({
             // Detection threshold for low-frequency blowing
             blowProgress += 1;
             if (
-              blowProgress > 10 &&
-              litCandlesRef.current[2] &&
-              blowOutRef.current
-            )
-              blowOutRef.current(2);
-            if (
-              blowProgress > 20 &&
+              blowProgress > 15 &&
               litCandlesRef.current[1] &&
               blowOutRef.current
             )
@@ -432,6 +426,18 @@ export default function Cake({
               <stop offset="70%" stopColor="#ffffff" />
               <stop offset="100%" stopColor="#d1bab3" />
             </linearGradient>
+
+            <linearGradient id="pinkGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#FF85B3" />
+              <stop offset="25%" stopColor="#E9518F" />
+              <stop offset="50%" stopColor="#C2185B" />
+              <stop offset="75%" stopColor="#E9518F" />
+              <stop offset="100%" stopColor="#FF85B3" />
+            </linearGradient>
+
+            <filter id="pinkShadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="2" dy="2" stdDeviation="1.5" floodColor="#5A0A28" floodOpacity="0.7" />
+            </filter>
           </defs>
 
           {/* Cake Stand Base */}
@@ -588,49 +594,52 @@ export default function Cake({
 
           {/* Candles */}
           <g id="candles">
-            {[95, 126, 157].map((x, i) => {
-              const isCenter = i === 1;
-              const baseY = isCenter ? 76 : 82;
-              const height = isCenter ? 36 : 30;
-              const topY = baseY - height;
+            {[105, 140].map((x, i) => {
+              const baseY = 78;
+              const topY = baseY - 24; // White stick goes up to topY
+              const number = i === 0 ? "2" : "3";
               return (
                 <g key={i} className="candle">
                   {/* Shadow */}
                   <ellipse
-                    cx={x + 4}
+                    cx={x + 7}
                     cy={baseY}
-                    rx="6"
-                    ry="2.5"
+                    rx="8"
+                    ry="3"
                     fill="rgba(0,0,0,0.2)"
                   />
 
-                  {/* Stick */}
+                  {/* White Stick */}
                   <rect
-                    x={x}
+                    x={x + 5}
                     y={topY}
-                    width="8"
-                    height={height}
-                    fill="url(#candleGrad)"
+                    width="4"
+                    height="24"
+                    fill="#fff"
                     rx="2"
+                    filter="url(#drop-shadow)"
                   />
 
-                  {/* Stripes */}
-                  <path
-                    d={`M ${x} ${topY + 6} L ${x + 8} ${topY + 2} L ${x + 8} ${topY + 6} L ${x} ${topY + 10} Z`}
-                    fill="#E9518F"
-                  />
-                  <path
-                    d={`M ${x} ${topY + 16} L ${x + 8} ${topY + 12} L ${x + 8} ${topY + 16} L ${x} ${topY + 20} Z`}
-                    fill="#E9518F"
-                  />
-                  <path
-                    d={`M ${x} ${topY + 26} L ${x + 8} ${topY + 22} L ${x + 8} ${topY + 26} L ${x} ${topY + 30} Z`}
-                    fill="#E9518F"
-                  />
+                  {/* Metallic Pink 3D Number */}
+                  <text
+                    x={x + 7}
+                    y={topY + 6}
+                    fill="url(#pinkGrad)"
+                    stroke="#C2185B"
+                    strokeWidth="1.5"
+                    fontSize="42"
+                    fontWeight="900"
+                    fontFamily="sans-serif"
+                    textAnchor="middle"
+                    filter="url(#pinkShadow)"
+                    style={{ pointerEvents: 'none', userSelect: 'none' }}
+                  >
+                    {number}
+                  </text>
 
                   {/* Wick */}
                   <path
-                    d={`M ${x + 4} ${topY} Q ${x + 6} ${topY - 4} ${x + 4} ${topY - 8}`}
+                    d={`M ${x + 7} ${topY - 34} Q ${x + 9} ${topY - 38} ${x + 7} ${topY - 42}`}
                     stroke="#333"
                     strokeWidth="1.5"
                     fill="none"
@@ -642,7 +651,7 @@ export default function Cake({
                     style={{
                       opacity: litCandles[i] ? 1 : 0,
                       transform: litCandles[i] ? "scale(1)" : "scale(0)",
-                      transformOrigin: `${x + 4}px ${topY}px`,
+                      transformOrigin: `${x + 7}px ${topY - 34}px`,
                       transition:
                         "opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
                       cursor: "pointer",
@@ -650,12 +659,12 @@ export default function Cake({
                   >
                     <g
                       className={litCandles[i] ? "flame-anim" : ""}
-                      style={{ transformOrigin: `${x + 4}px ${topY}px` }}
+                      style={{ transformOrigin: `${x + 7}px ${topY - 34}px` }}
                     >
                       {/* Outer Glow */}
                       <ellipse
-                        cx={x + 4}
-                        cy={topY - 14}
+                        cx={x + 7}
+                        cy={topY - 48}
                         rx="12"
                         ry="18"
                         fill="#FF6B00"
@@ -664,22 +673,22 @@ export default function Cake({
                       />
                       {/* Inner Flame */}
                       <ellipse
-                        cx={x + 4}
-                        cy={topY - 14}
+                        cx={x + 7}
+                        cy={topY - 48}
                         rx="6"
                         ry="12"
                         fill="#FF9D00"
                       />
                       <ellipse
-                        cx={x + 4}
-                        cy={topY - 12}
+                        cx={x + 7}
+                        cy={topY - 46}
                         rx="4"
                         ry="8"
                         fill="#FFD700"
                       />
                       <ellipse
-                        cx={x + 4}
-                        cy={topY - 10}
+                        cx={x + 7}
+                        cy={topY - 44}
                         rx="2"
                         ry="4"
                         fill="#FFFFFF"

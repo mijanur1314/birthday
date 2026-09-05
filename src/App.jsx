@@ -58,7 +58,7 @@ export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
   const [cakeBlown, setCakeBlown] = useState(false);
-  const [litCandles, setLitCandles] = useState([true, true, true]);
+  const [litCandles, setLitCandles] = useState([true, true]);
   
   const [currentStep, setCurrentStep] = useState('envelope');
   const cakeAudioRef = useRef(null);
